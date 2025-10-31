@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Binary Converter 🎃</title>
+        <meta charset="UTF-8">
+        <style>
+            /* ====== Halloween Base Layout ====== */
+        body {
+            text-align: center;
+            background: linear-gradient(180deg, #0d0d0d 0%, #2d0a0a 100%);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #ffbf66;
+        }
+
+        h1 {
+            font-family: "Lucida Handwriting", cursive;
+            font-size: 50px;
+            color: #ff7518;
+            margin-top: 40px;
+            text-shadow: 0 0 10px #ff5c00, 0 0 20px #ffa94d;
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 10px #ff5c00, 0 0 20px #ffa94d;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+
+        /* ====== Input Area ====== */
+        input {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 12px;
+            border: 2px solid #ff7518;
+            background-color: #1b1b1b;
+            color: #ffbf66;
+            width: 220px;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 117, 24, 0.5);
+        }
+
+        input::placeholder {
+            color: #ffbf6699;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px #ff7518, 0 0 30px #ffa94d;
+            border-color: #ffa94d;
+        }
+
+        /* ====== Buttons ====== */
+        button {
+            background-color: #ff7518;
+            color: #1b1b1b;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #ff7518;
+        }
+
+        button:hover {
+            background-color: #ffa94d;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff5c00;
+        }
+
+        /* ====== Output Area ====== */
+        #inputDisplay, #outputDisplay {
+            font-size: 18px;
+            color: #ffbf66;
+            margin-top: 15px;
+            text-shadow: 0 0 8px #ff7518;
+        }
+
+        /* ====== Footer ====== */
+        footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #ffa94d;
+            padding: 20px;
+            border-top: 1px solid #ff7518;
+            text-shadow: 0 0 5px #ff7518;
+        }
+
+        /* ====== Container for Structure ====== */
+        .converter-box {
+            background: rgba(255, 117, 24, 0.1);
+            display: inline-block;
+            padding: 30px 50px;
+            border-radius: 25px;
+            box-shadow: 0 0 25px rgba(255, 117, 24, 0.5);
+            margin-top: 30px;
+            border: 2px solid #ff7518;
+        }
+
+        /* ====== Decoration: Flying Bats ====== */
+        .bat {
+            position: absolute;
+            font-size: 28px;
+            animation: fly 10s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateX(-10vw) translateY(0);
+            }
+            50% {
+                transform: translateX(50vw) translateY(-40px);
+            }
+            100% {
+                transform: translateX(110vw) translateY(0);
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <h1>🎃 Converter 👻</h1>
+        <div class="converter-box">
+            <input id="decimal" placeholder="Decimal number" type="number">
+            <button type="submit" onclick="convert_to_binary()">Convert to Binary</button>
+            <br><br>
+            <input type="text" id="binary" placeholder="Binary number">
+            <button type="submit" onclick="convert_to_decimal()">Convert to Decimal</button>
+            <br>
+            <p id="inputDisplay"></p>
+            <p id="outputDisplay"></p>
+        </div>
+
+        <footer>🕸️ @ KraptuKrait | Happy Halloween 🦇</footer>
+
+        <div class="bat" style="top:100px; left:-50px;">🦇</div>
+        <div class="bat" style="top:180px; left:-100px; animation-delay:3s;">🦇</div>
+        <div class="bat" style="top:260px; left:-150px; animation-delay:5s;">🦇</div>
+
+        <script>
+            function convert_to_binary(){
+                let input = document.getElementById("decimal").value;
+                document.getElementById("inputDisplay").innerHTML = "Your input was: " + input;
+                let binary = "";
+                while(input > 0){
+                    binary = (input % 2) + binary;
+                    input = Math.floor(input / 2);
+                }
+                document.getElementById("outputDisplay").innerHTML = "🎃 Binary: 0b" + (binary || "0") + " 🕸️";
+            }
+
+            function convert_to_decimal(){
+                let input = document.getElementById("binary").value;
+                document.getElementById("inputDisplay").innerHTML = "Your input was: 0b" + input;
+                let decimal = parseInt(input, 2);
+                document.getElementById("outputDisplay").innerHTML = "👻 Decimal: " + decimal + " 🦇";
+            }
+        </script>
+    </body>
+</html>
