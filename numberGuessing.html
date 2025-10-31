@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🎃 Halloween Number Guessing 👻</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, #0d0d0d 0%, #2d0a0a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffbf66;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: "Lucida Handwriting", cursive;
+            font-size: 50px;
+            text-shadow: 0 0 10px #ff7518, 0 0 20px #ffa94d;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 12px;
+            border: 2px solid #ff7518;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+            border: none;
+            background-color: #ff7518;
+            color: #1b1b1b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffa94d;
+            transform: scale(1.05);
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 20px;
+            text-shadow: 0 0 8px #ff7518;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 32px;
+            animation: float 2s ease-out forwards;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎃 Halloween Number Guessing 👻</h1>
+    <input type="number" id="guessInput" placeholder="Enter a number">
+    <button id="guessBtn">Guess</button>
+    <div id="feedback"></div>
+
+    <script>
+        const maxNumber = 31;
+        const secretNumber = Math.floor(Math.random() * maxNumber) + 1;
+        const feedback = document.getElementById("feedback");
+        const guessInput = document.getElementById("guessInput");
+
+        function showEmoji(emoji){
+            const e = document.createElement("div");
+            e.classList.add("emoji");
+            e.innerText = emoji;
+            e.style.left = Math.random() * (window.innerWidth - 32) + "px";
+            e.style.top = Math.random() * (window.innerHeight - 32) + "px";
+            document.body.appendChild(e);
+            setTimeout(()=>e.remove(),2000);
+        }
+
+        document.getElementById("guessBtn").addEventListener("click",()=>{
+            const guess = Number(guessInput.value);
+            if(!guess){
+                feedback.innerText = "Please enter a number!";
+                return;
+            }
+            if(guess < secretNumber){
+                feedback.innerText = "Too low! 👻";
+            } else if(guess > secretNumber){
+                feedback.innerText = "Too high! 🦇";
+            } else {
+                feedback.innerText = "Correct! 🎃 You did it!";
+                // Bonus: Emojis appear randomly
+                for(let i=0;i<10;i++){
+                    showEmoji(["🎃","👻","🦇","💀"][Math.floor(Math.random()*4)]);
+                }
+            }
+            guessInput.value = "";
+            guessInput.focus();
+        });
+    </script>
+</body>
+</html>
